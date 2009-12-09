@@ -1,0 +1,29 @@
+grammar TestScript
+  rule root
+    empty test:("- " name empty "-"+ "\n" tests_a empty)* <TestsNode>
+  end
+
+  rule tests_a
+    empty test:(name "\n" tests_b)* <TestsNode>
+  end
+
+  rule tests_b
+    empty test:("  " name "\n" tests_c)* <TestsNode>
+  end
+
+  rule tests_c
+    empty test:("    " name "\n")* {
+      def collect
+        test.elements.map { |t| t.name.text_value }
+      end
+    }
+  end
+
+  rule name
+    [a-zA-Z] [a-zA-Z0-9 ,.&()':/$=<>\-_]*
+  end
+
+  rule empty
+    [\n\t\r]*
+  end
+end
