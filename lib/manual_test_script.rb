@@ -1,4 +1,5 @@
 require 'highline/import'
+require 'treetop'
 require 'test_script'
 
 class ManualTestScript
