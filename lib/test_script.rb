@@ -40,7 +40,10 @@ module TestScript
     start_index = index
     if node_cache[:root].has_key?(index)
       cached = node_cache[:root][index]
-      @index = cached.interval.end if cached
+      if cached
+        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        @index = cached.interval.end
+      end
       return cached
     end
 
@@ -162,7 +165,10 @@ module TestScript
     start_index = index
     if node_cache[:tests_a].has_key?(index)
       cached = node_cache[:tests_a][index]
-      @index = cached.interval.end if cached
+      if cached
+        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        @index = cached.interval.end
+      end
       return cached
     end
 
@@ -242,7 +248,10 @@ module TestScript
     start_index = index
     if node_cache[:tests_b].has_key?(index)
       cached = node_cache[:tests_b][index]
-      @index = cached.interval.end if cached
+      if cached
+        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        @index = cached.interval.end
+      end
       return cached
     end
 
@@ -335,7 +344,10 @@ module TestScript
     start_index = index
     if node_cache[:tests_c].has_key?(index)
       cached = node_cache[:tests_c][index]
-      @index = cached.interval.end if cached
+      if cached
+        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        @index = cached.interval.end
+      end
       return cached
     end
 
@@ -405,12 +417,15 @@ module TestScript
     start_index = index
     if node_cache[:name].has_key?(index)
       cached = node_cache[:name][index]
-      @index = cached.interval.end if cached
+      if cached
+        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        @index = cached.interval.end
+      end
       return cached
     end
 
     i0, s0 = index, []
-    if has_terminal?('\G[a-zA-Z]', true, index)
+    if has_terminal?('\G[a-zA-Z*]', true, index)
       r1 = true
       @index += 1
     else
@@ -420,7 +435,7 @@ module TestScript
     if r1
       s2, i2 = [], index
       loop do
-        if has_terminal?('\G[a-zA-Z0-9 ,.&()\'":/$=<>\\-_]', true, index)
+        if has_terminal?('\G[a-zA-Z0-9 ,.&()\'":/$=<>\\-_?]', true, index)
           r3 = true
           @index += 1
         else
@@ -452,7 +467,10 @@ module TestScript
     start_index = index
     if node_cache[:empty].has_key?(index)
       cached = node_cache[:empty][index]
-      @index = cached.interval.end if cached
+      if cached
+        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        @index = cached.interval.end
+      end
       return cached
     end
 
