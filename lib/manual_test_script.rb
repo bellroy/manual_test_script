@@ -1,6 +1,7 @@
 require 'highline/import'
 require 'treetop'
 require 'test_script'
+require 'tests_node'
 
 class ManualTestScript
   class << self
@@ -12,7 +13,7 @@ class ManualTestScript
 
     attr_accessor :intro
 
-    def run
+    def run(script = "#{Rails.root}/spec/manual_testing.txt")
       @tests = ActiveSupport::OrderedHash.new
       @test_stack = []
       @failing_tests = []
@@ -24,7 +25,7 @@ class ManualTestScript
 
       puts $/, "\e[32m\e[1mPlease confirm the following:\e[0m"
 
-      @tests = TestScriptParser.new.parse(File.read("#{Rails.root}/spec/manual_testing.txt")).collect
+      @tests = TestScriptParser.new.parse(File.read(script)).collect
       run_tests
     ensure
       if @failing_tests.empty?
