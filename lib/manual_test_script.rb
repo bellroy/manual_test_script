@@ -57,9 +57,9 @@ class ManualTestScript
           run_tests(sub_tests)
         else
           case ask(test)
-          when 'y': # Good! continue...
-          when 'n': @failing_tests << @test_stack.dup
-          when 'q': exit
+          when 'y' then # Good! continue...
+          when 'n' then @failing_tests << @test_stack.dup
+          when 'q' then exit
           end
         end
       end
