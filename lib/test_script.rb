@@ -435,7 +435,7 @@ module TestScript
     if r1
       s2, i2 = [], index
       loop do
-        if has_terminal?('\G[a-zA-Z0-9 ,.&()\'":/$=<>\\-+_?]', true, index)
+        if has_terminal?('\G[a-zA-Z0-9 ,.&()\'":/$=@<>\\-+_?]', true, index)
           r3 = true
           @index += 1
         else

@@ -4,8 +4,10 @@ namespace :test do
     ManualTestScript.run
   end
 
+
   desc "Interactively run through the post-deployment test script."
-  task :post_deploy => [:environment] do
-    ManualTestScript.run("#{Rails.root}/spec/post-deployment-test.txt")
+  task :post_deploy do
+    ManualTestScript.run(:tags => 'post-deploy')
   end
+
 end
