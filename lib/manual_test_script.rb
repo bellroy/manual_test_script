@@ -1,5 +1,6 @@
 require 'highline/import'
 require 'treetop'
+require 'active_support'
 require 'test_script'
 require 'tests_node'
 
@@ -13,10 +14,18 @@ class ManualTestScript
 
     attr_accessor :intro
 
-    def run(script = "#{Rails.root}/spec/manual_testing.txt")
+    def run(options = {:script => nil, :tags => nil})
       @tests = ActiveSupport::OrderedHash.new
       @test_stack = []
       @failing_tests = []
+      
+      @tags = options[:tags] || []
+      script = options[:script] || "#{Rails.root}/spec/manual_testing.txt"
+      
+      unless File.exist?(script)
+        puts "Could not find a test script at #{script}"
+        return
+      end
 
       puts "Welcome to the manual testing script."
       puts "Please \e[1mdo not skip through sections of this test\e[0m, it is as long as it needs to be.", $/
@@ -26,6 +35,14 @@ class ManualTestScript
       puts $/, "\e[32m\e[1mPlease confirm the following:\e[0m"
 
       @tests = TestScriptParser.new.parse(File.read(script)).collect
+
+      # pluck the tagged scenarios if tags supplied
+      if !@tags.empty?
+        @tests = @tests.select{|test, sub_tests|
+          test.split('@').any?{|tag|@tags.include?(tag)}
+        }
+      end
+
       run_tests
     ensure
       if @failing_tests.empty?
@@ -45,6 +62,7 @@ class ManualTestScript
 
     def run_tests(tests = @tests)
       @test_stack.push nil
+
       tests.each do |test, sub_tests|
         @test_stack[-1] = test
         print ' ' * (@test_stack.length - 1)
