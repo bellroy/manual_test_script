@@ -18,6 +18,11 @@ class ManualTestScript
       @test_stack = []
       @failing_tests = []
 
+      unless File.exist?(script)
+        puts "Could not find a test script at #{script}"
+        return
+      end
+
       puts "Welcome to the manual testing script."
       puts "Please \e[1mdo not skip through sections of this test\e[0m, it is as long as it needs to be.", $/
 
