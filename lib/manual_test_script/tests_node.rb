@@ -1,8 +1,8 @@
 module TestsNode
   def collect
     level = case
-              when test.elements.first.respond_to?(:tests_a): :a
-              when test.elements.first.respond_to?(:tests_b): :b
+              when test.elements.first.respond_to?(:tests_a) then :a
+              when test.elements.first.respond_to?(:tests_b) then :b
               else                                            :c
             end
 
