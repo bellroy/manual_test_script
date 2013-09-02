@@ -9,7 +9,7 @@ Install
 
 Include in your Gemfile and run bundle install.
 
-  gem 'manual_test_script',   :git => 'https://github.com/tricycle/manual_test_script.git',   :branch => 'gemified'
+    gem 'manual_test_script',   :git => 'https://github.com/tricycle/manual_test_script.git',   :branch => 'gemified'
     bundle install
 
 
