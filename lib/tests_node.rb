@@ -1,9 +1,12 @@
 module TestsNode
   def collect
     level = case
-              when test.elements.first.respond_to?(:tests_a): :a
-              when test.elements.first.respond_to?(:tests_b): :b
-              else                                            :c
+            when test.elements.first.respond_to?(:tests_a)
+              :a
+            when test.elements.first.respond_to?(:tests_b)
+              :b
+            else
+              :c
             end
 
     test_hash = ActiveSupport::OrderedHash.new
