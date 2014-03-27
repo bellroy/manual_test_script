@@ -17,10 +17,10 @@ class ManualTestScript
       @tests = ActiveSupport::OrderedHash.new
       @test_stack = []
       @failing_tests = []
-      
+
       @tags = options[:tags] || []
       script = options[:script] || "#{Rails.root}/spec/manual_testing.txt"
-      
+
       unless File.exist?(script)
         puts "Could not find a test script at #{script}"
         return
